@@ -1,9 +1,8 @@
 import { User } from './models/User';
 
-const user = new User({ name: 'G', age: 16 });
+const user = new User({ id: 1 });
+user.fetch();
 
-user.on('click', () => console.log('click 1'));
-user.on('click', () => console.log('click 2'));
-user.on('hover', () => console.log('hover'));
-
-user.trigger('click');
+setTimeout(() => {
+  console.log(user);
+}, 3000);

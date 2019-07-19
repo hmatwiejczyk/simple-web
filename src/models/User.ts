@@ -1,4 +1,7 @@
+import axios, { AxiosResponse } from 'axios';
+import { baseUrl } from '../environment';
 interface UserProps {
+  id?: number;
   name?: string;
   age?: number;
 }
@@ -24,5 +27,9 @@ export class User {
       return;
     }
     handlers.forEach(cb => cb());
+  }
+  async fetch() {
+    const res: AxiosResponse = await axios.get(`${baseUrl}${this.get('id')}`);
+    await this.set(res.data);
   }
 }
