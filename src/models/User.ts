@@ -32,4 +32,12 @@ export class User {
     const res: AxiosResponse = await axios.get(`${baseUrl}${this.get('id')}`);
     await this.set(res.data);
   }
+  async save() {
+    const id = this.get('id');
+    if (id) {
+      await axios.put(`${baseUrl}${id}`, this.data);
+    } else {
+      await axios.post(`${baseUrl}`, this.data);
+    }
+  }
 }
