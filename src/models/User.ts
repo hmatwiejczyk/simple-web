@@ -1,13 +1,15 @@
-import axios, { AxiosResponse } from 'axios';
-import { baseUrl } from '../environment';
 import { Eventing } from './Eventing';
+import { Sync } from './Sync';
+import { baseUrl } from "../environment";
 interface UserProps {
   id?: number;
   name?: string;
   age?: number;
 }
 export class User {
-  events: Eventing = new Eventing();
+  public events: Eventing = new Eventing();
+  public sync: Sync<UserProps> = new Sync<UserProps>(baseUrl);
+
   constructor(private data: UserProps) {}
 
   get(propName: string): number | string {
@@ -15,17 +17,5 @@ export class User {
   }
   set(update: UserProps): void {
     Object.assign(this.data, update);
-  }
-  async fetch() {
-    const res: AxiosResponse = await axios.get(`${baseUrl}${this.get('id')}`);
-    await this.set(res.data);
-  }
-  async save() {
-    const id = this.get('id');
-    if (id) {
-      await axios.put(`${baseUrl}${id}`, this.data);
-    } else {
-      await axios.post(`${baseUrl}`, this.data);
-    }
   }
 }
