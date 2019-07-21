@@ -2,7 +2,7 @@ import { Eventing } from './Eventing';
 import { Sync } from './Sync';
 import { baseUrl } from '../environment';
 import { Attributes } from './Attributes';
-import { AxiosResponse, AxiosPromise } from 'axios';
+import { AxiosResponse } from 'axios';
 interface UserProps {
   id?: number;
   name?: string;
@@ -41,11 +41,13 @@ export class User {
       }
     );
   }
-  save(): void {
+  async save(): Promise<void> {
     const data = this.attributes.getAll();
-    this.sync
-      .save(data)
-      .then((response: AxiosResponse): void => this.trigger('save'))
-      .catch(() => this.trigger('error'));
+    try {
+      await this.sync.save(data);
+      await this.trigger('save');
+    } catch {
+      await this.trigger('error');
+    }
   }
 }
