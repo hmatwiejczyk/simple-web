@@ -4,7 +4,7 @@ import { ApiSync } from './ApiSync';
 import { Attributes } from './Attributes';
 import { baseUrl } from '../environment';
 
-interface UserProps {
+export interface UserProps {
   id?: number;
   name?: string;
   age?: number;

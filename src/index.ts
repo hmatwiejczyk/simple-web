@@ -1,8 +1,8 @@
-import { User } from './models/User';
+import { Collection } from "./models/Collection";
+import { baseUrl } from "./environment";
 
-const user = User.createUser({ id: 1 });
-
-user.on('change', () => {
-  console.log(user);
-});
-user.fetch();
+const collection = new Collection(baseUrl);
+collection.on('change', () => {
+  console.log(collection);
+})
+collection.fetch();
