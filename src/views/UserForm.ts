@@ -1,22 +1,17 @@
-import { User } from "../models/User";
+import { User } from '../models/User';
 
 export class UserForm {
   constructor(public parent: Element, public model: User) {}
 
   eventsMap(): { [key: string]: () => void } {
     return {
-      'click:button': this.onButtonClick,
-      'mouseenter:h1': this.onHeaderHover
+      'click:.set-age': this.onSetAge
     };
   }
 
-  onButtonClick(): void {
-    console.log('hi there');
-  }
-
-  onHeaderHover(): void {
-    console.log('hovered');
-  }
+  onSetAge = (): void => {
+    this.model.setRandomAge();
+  };
 
   template(): string {
     return `
@@ -29,7 +24,7 @@ export class UserForm {
           Age: ${this.model.get('age')}
         </div>
         <input />
-        <button>click me</button>
+        <button class="set-age">Set random Age</button>
       </div>
     `;
   }
