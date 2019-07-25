@@ -7,7 +7,7 @@
     "start:parcel": "parcel index.html",
     "start:json": "json-server -w db.json",
     "start": "concurrently npm:start:*",
-    "init:tsc": "tsc --init" 
+    "init:tsc": "tsc --init"
   },
   "repository": {
     "type": "git",
